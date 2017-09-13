@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
   config.hostsupdater.aliases = ["development.local"]
 
   #synced app folder
-  config.vm.synced_folder ".", "/home/ubuntu/app"
+  config.vm.synced_folder ".", "/home/ubuntu/app", owner: "app" , group: "app"
 
   #provision
 
