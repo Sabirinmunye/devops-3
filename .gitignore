@@ -1,3 +1,6 @@
+.terraform.tfstate.backup
+.terraform.tfstate
+.terraform
 /node_modules/
 *.gem
 *.rbc
