@@ -1,4 +1,5 @@
 /devops-terraform/terraform.tfstate.backup
+/devops-terraform/terraform.tfstate
 /devops-terraform/.terraform
 /node_modules/
 *.gem
