@@ -71,10 +71,24 @@ resource "aws_security_group" "db_security" {
     cidr_blocks     = ["0.0.0.0/0"]
   }
 }
+data "aws_ami" "web" {
+  filter {
+    name   = "state"
+    values = ["available"]
+  }
+
+  filter {
+    name   = "name"
+    values = ["sab-web-prod*"]
+  }
+
+  most_recent = true
+}
 
 data "template_file" "init_script" {
   template = "${file("${path.module}/init.sh")}"
 } 
+
 
 resource "aws_instance" "web" {
   ami           = "${data.aws_ami.web.id}"
@@ -129,16 +143,3 @@ resource "aws_route_table_association" "database" {
   route_table_id = "${aws_route_table.database.id}"
 }
 
-data "aws_ami" "web" {
-  filter {
-    name   = "state"
-    values = ["available"]
-  }
-
-  filter {
-    name   = "name"
-    values = ["sab-web-prod*"]
-  }
-
-  most_recent = true
-}
