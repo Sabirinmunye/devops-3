@@ -77,7 +77,7 @@ data "template_file" "init_script" {
 } 
 
 resource "aws_instance" "web" {
-  ami           = "ami-95c3d0f1"
+  ami           = "${data.aws_ami.web.id}"
   instance_type = "t2.micro"
   vpc_security_group_ids =["${aws_security_group.web-sab.id}"]
   subnet_id ="${aws_subnet.web.id}"
@@ -127,4 +127,18 @@ resource "aws_route_table" "database" {
 resource "aws_route_table_association" "database" {
   subnet_id      = "${aws_subnet.sab-db.id}"
   route_table_id = "${aws_route_table.database.id}"
+}
+
+data "aws_ami" "web" {
+  filter {
+    name   = "state"
+    values = ["available"]
+  }
+
+  filter {
+    name   = "name"
+    values = ["sab-web-prod*"]
+  }
+
+  most_recent = true
 }
