@@ -79,7 +79,7 @@ data "aws_ami" "web" {
 
   filter {
     name   = "name"
-    values = ["sab-web-prod*"]
+    values = ["Sab-web-prod*"]
   }
 
   most_recent = true
